@@ -122,7 +122,7 @@ export class MindmapComponent implements OnInit {
           title: 'Mind Map 3',
           // imageUrl: 'https://source.unsplash.com/random/200x120',
           // imageUrl: null,
-          imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
+          imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
           // imageUrl: 'assets/btcIllustrated/mindmap/notes.png',
           tag: 'Version 2'
         },

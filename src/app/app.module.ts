@@ -13,13 +13,15 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NgAnimatedBorderModule } from 'ng-animated-border'
+import { NgAnimatedBorderModule } from 'ng-animated-border';
+import { AnalogyComponent } from './components/analogy/analogy.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MindmapComponent
+    MindmapComponent,
+    AnalogyComponent
   ],
   imports: [
     BrowserModule,
