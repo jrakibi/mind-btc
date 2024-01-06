@@ -1,0 +1,28 @@
+<!-- Storyboard Container -->
+<div class="storyboard-container">
+    <!-- Title of the storyboard -->
+    <h1>{{ storyData.title }}</h1>
+
+    <!-- Scenes Container -->
+    <div class="scenes">
+        <!-- Scene Card -->
+        <div class="scene" *ngFor="let scene of storyData.scenes">
+            <!-- Scene Header -->
+            <div class="scene-header">
+                <div class="scene-header-cell scene-number">Scene: {{ scene.sceneNumber }}</div>
+                <div class="scene-title">{{ scene.title }}</div>
+            </div>
+
+            <!-- Scene Content -->
+            <div class="scene-content">
+
+                <!-- Scene Image -->
+                <img src="{{ scene.imageUrl }}" alt="Scene image">
+                <div class="scene-content">
+                    <p>{{ scene.text }}</p>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</div>

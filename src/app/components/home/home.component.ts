@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       const userInput = this.form.get('userInput')?.value;
 
       this.isLoading = false; // Hide loading animation
-      this.router.navigate(['mindmap']);
+      this.router.navigate(['dashboard']);
       // this.openaiService.getMindMapper(userInput).subscribe({
       //   next: (response) => {
       //     debugger

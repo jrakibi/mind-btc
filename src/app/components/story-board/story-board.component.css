@@ -1,0 +1,79 @@
+/* General Styles */
+.storyboard-container {
+    padding: 20px;
+    background-color: #111b21;
+    color: #ffffff;
+}
+
+.scene-content {
+    padding: 10px;
+    border-top: 1px solid #111b21;
+}
+
+/* Scene Card Styles */
+.scene {
+    margin-bottom: 30px;
+    border-left: 5px solid #ffd700;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: #111b21;
+}
+
+/* Scene Header Styles */
+.scene-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #111b21;
+}
+
+.scene-header-cell {
+    padding: 10px; /* Spacing inside the header cells */
+    flex-grow: 1;
+    text-align: center; /* Center the text in the header cells */
+}
+
+/* First header cell to align left */
+.scene-number {
+    text-align: left;
+    font-weight: bold;
+    border-right: 2px solid #111b21;
+    width: 25%;
+}
+
+/* Second header cell to align right */
+.scene-title {
+    text-align: left;
+    font-weight: initial;
+    margin: auto;
+    width: 100%;
+    padding-left: 10px;
+}
+
+/* Scene Content Styles */
+.scene-content p {
+    color: #111b21;
+}
+
+/* Image Styles */
+.scene img {
+    width: 200px;
+    height: auto;
+    margin: 5px;
+}
+
+/* Responsive Styles */
+.scenes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.scene {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .scenes {
+        grid-template-columns: 1fr;
+    }
+}

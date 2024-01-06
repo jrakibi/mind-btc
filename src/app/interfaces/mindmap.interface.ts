@@ -1,4 +1,5 @@
 import { Edge, GraphComponent, Node } from '@swimlane/ngx-graph';
+import { Workspace } from '../dashboard/dashboard.component';
 
 export interface MyNode extends Node {
     label: string;
@@ -17,7 +18,7 @@ export interface MindMap {
 export interface LayoutMindMap {
     title: string;
     imageUrl: string;
-    tag: string;
+    tag: Workspace;
 }
 
 export interface MyLink extends Edge {

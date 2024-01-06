@@ -14,14 +14,16 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgAnimatedBorderModule } from 'ng-animated-border';
-import { AnalogyComponent } from './components/analogy/analogy.component'
+import { StoryBoardComponent } from './components/story-board/story-board.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MindmapComponent,
-    AnalogyComponent
+    StoryBoardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

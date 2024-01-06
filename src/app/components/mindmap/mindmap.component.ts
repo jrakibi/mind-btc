@@ -1,87 +1,85 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+// Import statements
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Edge, GraphComponent, Layout, Node } from '@swimlane/ngx-graph';
 import { LayoutMindMap, MindMap, MyLink, MyNode } from 'src/app/interfaces/mindmap.interface';
 import { AppContext } from 'src/app/services/app-context';
-import { MindMapperResponse } from '../model/mind-map.api.interfaces';
 import { OpenaiService } from 'src/app/services/open-ai.service';
+import { MindMapperResponse } from '../model/mind-map.api.interfaces';
+import { Workspace } from 'src/app/dashboard/dashboard.component';
 
+// Component Decorator with metadata
 @Component({
   selector: 'app-mindmap',
   templateUrl: './mindmap.component.html',
   styleUrls: ['./mindmap.component.css', './mindmap2.component.css']
 })
-export class MindmapComponent implements OnInit {
-  // width = 2000; // Example width
-  // height = 1000; // Example height
+export class MindmapComponent implements OnInit, AfterViewInit {
+  // Properties
   width = 100; // 100% of the viewport width
-  height = 80; // 80% of the viewport height, leaving some space for headers and footers
-
+  height = 80; // 80% of the viewport height
   nodes: MyNode[] = [];
   links: MyLink[] = [];
   layout: string | Layout = 'dagre';
-  idCounter = 0; // Counter to keep track of unique IDs for nodes and links
+  idCounter = 0; // Counter for unique IDs
   mindMaps: MindMap[] = [];
   layoutsMindMapper: LayoutMindMap[] = [];
-  showTags: boolean = true;
-
+  showTags = true;
   form: FormGroup;
+  public jsonData: any; // JSON data property
+  @ViewChild(GraphComponent) graphComponent?: GraphComponent;
+  zoomLevel = 0.5;
+  zoomStep = 0.1;
+  showDropdown: string | null = null;
 
-  public jsonData: any = {
-    "title": "assumeUTXO",
-    "summary": "assumeUTXO is a tool used in Bitcoin development to simulate the state of the Unspent Transaction Output (UTXO) set.",
-    "details": [
-      {
-        "title": "Simulating UTXO Set",
-        "explanations": [
-          "The UTXO set represents all the unspent transaction outputs in the Bitcoin network.",
-          "assumeUTXO is a tool that allows developers to create a simulated UTXO set for testing purposes.",
-          "This tool helps developers analyze and understand the behavior of their code without interacting with the real Bitcoin network."
-        ]
-      },
-      {
-        "title": "Testing Bitcoin Code",
-        "explanations": [
-          "assumeUTXO is particularly useful for testing Bitcoin code that relies on the state of the UTXO set.",
-          "Developers can use assumeUTXO to create specific scenarios and test how their code handles different UTXO states.",
-          "By simulating different UTXO sets, developers can ensure their code functions correctly in various scenarios."
-        ]
-      },
-      {
-        "title": "Debugging and Optimization",
-        "explanations": [
-          "assumeUTXO can also be used for debugging and optimizing Bitcoin code.",
-          "Developers can simulate specific UTXO sets to identify potential issues or bottlenecks in their code.",
-          "By analyzing the behavior of their code with different UTXO sets, developers can make improvements and optimize performance."
-        ]
-      }
-    ]
-  }
-  // public jsonData
-
-  constructor(public dialog: MatDialog,
+  // Constructor
+  constructor(
+    public dialog: MatDialog,
     private appContext: AppContext,
     private openaiService: OpenaiService
   ) {
     this.form = new FormGroup({
       userInput: new FormControl(''),
-      workflow: new FormControl(''), // Assuming single selection for simplicity
-      tone: new FormControl(''), // Assuming single selection for simplicity
+      workflow: new FormControl(''),
+      tone: new FormControl(''),
     });
-
+    this.jsonData = {
+      "title": "assumeUTXO",
+      "summary": "assumeUTXO is a tool used in Bitcoin development to simulate the state of the Unspent Transaction Output (UTXO) set.",
+      "details": [
+        {
+          "title": "Simulating UTXO Set",
+          "explanations": [
+            "The UTXO set represents all the unspent transaction outputs in the Bitcoin network.",
+            "assumeUTXO is a tool that allows developers to create a simulated UTXO set for testing purposes.",
+            "This tool helps developers analyze and understand the behavior of their code without interacting with the real Bitcoin network."
+          ]
+        },
+        {
+          "title": "Testing Bitcoin Code",
+          "explanations": [
+            "assumeUTXO is particularly useful for testing Bitcoin code that relies on the state of the UTXO set.",
+            "Developers can use assumeUTXO to create specific scenarios and test how their code handles different UTXO states.",
+            "By simulating different UTXO sets, developers can ensure their code functions correctly in various scenarios."
+          ]
+        },
+        {
+          "title": "Debugging and Optimization",
+          "explanations": [
+            "assumeUTXO can also be used for debugging and optimizing Bitcoin code.",
+            "Developers can simulate specific UTXO sets to identify potential issues or bottlenecks in their code.",
+            "By analyzing the behavior of their code with different UTXO sets, developers can make improvements and optimize performance."
+          ]
+        }
+      ]
+    }
   }
 
+  // Lifecycle hooks
   ngOnInit(): void {
-
-
-    // const mindMapData = this.appContext.retrieveMindMapperData();
-    // if (mindMapData !== null) {
-    //   // Use mindMapData here
-    // } else {
-    //   // Handle the null case
-    // }
-    const mindMapData = this.jsonData;
+    // Mind Map initialization logic
+    const mindMapData = this.jsonData; // Simplified data retrieval logic
     if (mindMapData) {
       this.jsonData = mindMapData; // Assign the dynamic data to the jsonData property
       const graphData = this.transformToGraphData(this.jsonData);
@@ -110,58 +108,22 @@ export class MindmapComponent implements OnInit {
       ];
 
 
-      this.layoutsMindMapper = [
-        {
-          title: 'Mind Map 2',
-          // imageUrl: 'https://source.unsplash.com/random/200x120',
-          imageUrl: 'assets/btcIllustrated/mindmap/test.png',
-          // imageUrl: 'assets/btcIllustrated/mindmap/mindmap.png',
-          tag: 'Version 1'
-        },
-        {
-          title: 'Mind Map 3',
-          // imageUrl: 'https://source.unsplash.com/random/200x120',
-          // imageUrl: null,
-          imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
-          // imageUrl: 'assets/btcIllustrated/mindmap/notes.png',
-          tag: 'Version 2'
-        },
-        {
-          title: 'Mind Map 1',
-          // imageUrl: null,
-          imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
-          // imageUrl: 'assets/btcIllustrated/mindmap/chart.png',
-          tag: 'Version 3'
-        },
-      ];
     } else {
-      // Handle the case where there is no data
       console.error('No data available for the Mind Map');
-      // Redirect back to home or display a message
     }
-
-
   }
 
-  submitData() {
+  ngAfterViewInit(): void {
+    this.graphComponent?.zoomTo(this.zoomLevel);
+  }
 
-    if (this.form.valid) {
-      const userInput = this.form.get('userInput')?.value;
-      this.openaiService.getMindMapper(userInput).subscribe({
-        next: (response) => {
-
-
-        },
-        error: (err) => {
-
-          console.error('Error generating mind map:', err);
-        }
-      });
-    }
+  // Methods
+  submitData(): void {
+    // Form submission logic
   }
 
   private generateId(): string {
-    return `node-${this.idCounter++}`; // Increment the counter after use
+    return `node-${this.idCounter++}`;
   }
 
   private transformToGraphData(jsonData: any): { nodes: MyNode[], links: MyLink[] } {
@@ -318,9 +280,6 @@ export class MindmapComponent implements OnInit {
 
 
 
-  showDropdown: string | null = null;
-
-
   toggleDropdown(dropdownKey: string) {
 
     this.showDropdown = this.showDropdown === dropdownKey ? null : dropdownKey;
@@ -336,9 +295,7 @@ export class MindmapComponent implements OnInit {
     this.showDropdown = null; // Hide dropdown after selection
   }
 
-  @ViewChild(GraphComponent) graphComponent?: GraphComponent;
-  zoomLevel: number = 1.0;
-  zoomStep: number = 0.1;
+
   zoomIn(): void {
     this.zoomLevel = Math.min(this.zoomLevel + this.zoomStep, 2); // max zoom level 2
     this.graphComponent?.zoomTo(this.zoomLevel);

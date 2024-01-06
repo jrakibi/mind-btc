@@ -1,0 +1,121 @@
+<div class="main-layout">
+    <div class="app-container">
+
+        <!-- History Panel -->
+        <div class="history-panel">
+            <div class="history-header">
+                <!-- <i class="fas fa-arrow-left"></i> -->
+                <span>
+                    History
+
+                </span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15" width="15"
+                        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                        <path fill="#ffffff"
+                            d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z" />
+                    </svg>
+                </span>
+            </div>
+            <div class="card" *ngFor="let map of mindMaps">
+                <div class="image-container">
+                    <img src="{{ map.imageUrl }}" alt="Mind Map" onerror="this.style.display='none'" />
+                    <div class="fallback-image" *ngIf="!map.imageUrl">No Image</div>
+                </div>
+                <div class="card-tag">{{map.tag}}</div>
+            </div>
+        </div>
+
+
+        <!-- Workspace -->
+        <div class="workspace">
+            <!-- Header -->
+            <div class="workspace-header">
+                <div class="header-left">
+                    <i class="fas fa-brain"></i>
+                    <span class="mind-map-title">{{jsonData.title}} </span>
+                </div>
+                <div class="header-center">
+                    <!-- Random icons -->
+                    <!-- <img src="assets/btcIllustrated/mindmap/notes.png" alt="User Icon" class="header-icon">
+                    <img src="assets/btcIllustrated/mindmap/mindmap.png" alt="User Icon" class="header-icon">
+                    <img src="assets/btcIllustrated/mindmap/chart.png" alt="User Icon" class="header-icon"> -->
+                </div>
+                <div class="header-right">
+                    <button class="generate-button">
+                        <i class="fas fa-robot" style="margin-right: 10px;"></i> New Generation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Graph Container -->
+            <div class="graph-container"
+                [ngClass]="{'align-center': activeWorkspace == Workspace.MindMap, 'align-flex-start': activeWorkspace == Workspace.StoryBoard}">
+
+                <app-mindmap *ngIf="activeWorkspace == Workspace.MindMap"></app-mindmap>
+                <app-storyboard *ngIf="activeWorkspace == Workspace.StoryBoard"></app-storyboard>
+
+            </div>
+
+
+
+            <!-- Footer/Search bar -->
+            <div class="footer">
+                <div class="card-row">
+                    <!-- These are the card previews -->
+                    <div class="card-container" *ngFor="let map of layoutsMindMapper">
+                        <div class="card card-preview2" (click)="showWorkspace(map.tag)">
+                            <img src="{{ map.imageUrl }}" alt="Card Image" />
+                            <!-- <div class="card-tag2">{{ map.tag }}</div> -->
+
+                        </div>
+                        <div class="card-text">{{ map.tag }}</div>
+                    </div>
+                    <div class="card card-preview2 dashed">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="regenerate-icon">Regenerate</span>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <div class="box search-bar-ai">
+                        <input type="text" placeholder="Generate a mind map for ..." (focus)="showTags=true">
+                        <i class="fas fa-paper-plane search-icon" (click)="submitData()"></i>
+                    </div>
+
+                    <!-- <div class="tags" *ngIf="showTags">
+                        <div class="dropdown">
+                            <button class="tag-button dropdown-toggle" type="button"
+                                (click)="toggleDropdown('workflow')">
+                                <i class="fas fa-brain"></i> {{ form.value.workflow || 'Workflow' }}
+                            </button>
+                            <div class="dropdown-content" [class.show]="showDropdown === 'workflow'">
+                                <a (click)="selectDropdownOption('workflow', 'Mind map')">
+                                    <i class="far fa-lightbulb"></i> Mind map
+                                </a>
+                                <a (click)="selectDropdownOption('workflow', 'Notes')">
+                                    <i class="far fa-lightbulb"></i> Notes
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="tag-button dropdown-toggle" type="button" (click)="toggleDropdown('tone')">
+                                <i class="fas fa-comments"></i> {{ form.value.tone || 'Tone' }}
+                            </button>
+                            <div class="dropdown-content" [class.show]="showDropdown === 'tone'">
+                                <a (click)="selectDropdownOption('tone', 'Technical')">
+                                    <i class="far fa-user"></i> Technical
+                                </a>
+                                <a (click)="selectDropdownOption('tone', 'Non-technical')">
+                                    <i class="far fa-user"></i> Non-technical
+                                </a>
+                            </div>
+                        </div>
+
+                        <button class="tag-button" type="file"><i class="fa fa-cloud-upload"></i> Upload fille (.pdf,
+                            .txt)</button>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>

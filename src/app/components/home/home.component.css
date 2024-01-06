@@ -5,12 +5,13 @@
     height: 100vh; /* Full height of the viewport */
     background: #111b21;
     font-size: 14px;
+    font-family: 'outfit';
 }
 
 .container {
     border: 1px solid #FCF5EB;
     padding: 20px;
-    max-width: 50%; /* Maximum width */
+    max-width: 45%; /* Maximum width */
     width: 100%; /* Make it responsive */
     margin: auto; /* Center within the .home-comp */
 }
@@ -26,7 +27,7 @@
   
   .search-bar-ai input {
     flex-grow: 1;
-    padding: 10px;
+    padding: 16px;
     border: unset;
     border-radius: 4px;
     /* background: transparent; */
@@ -43,7 +44,8 @@
   
   .search-icon {
     position: absolute;
-    right: 10px;
+    right: 14px;
+    font-size: 16px;
     cursor: pointer;
   
     background: -webkit-linear-gradient(90deg, #c97e64, #d8a679 11.46%, #97d9d7 33.33%, #e99e52);
@@ -62,10 +64,11 @@
     border: 1px solid #98938d;
     border-radius: 20px;
     margin-right: 10px;
-    padding: 2px 10px;
+    padding: 4px 10px;
     color: #FCF5EB;
     display: flex;
     align-items: center;
+    font-family: 'Outfit' !important;
   }
   
   .tag-button i {
@@ -131,6 +134,7 @@
     padding: 10px;
     border-radius: 50px;
     cursor: pointer;
+    font-weight: 100;
   }
   
   .option:hover {
@@ -221,7 +225,6 @@
     padding: 1rem;
     text-align: center;
     color:white;
-    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
   
     background: linear-gradient(270deg, #e922e9, #f75d21, #5543f7, #00dbff, #92db32);
@@ -309,3 +312,10 @@
     /* Add padding, background or other styles as needed to match the design of the form */
   }
   
+  .big-box {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fcf5eb !important;
+    border-radius: 14px;
+  }
