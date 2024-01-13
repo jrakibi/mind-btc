@@ -55,7 +55,12 @@ export class QuizComponent {
   answerSubmitted: boolean = false; // Initially false
   showFooter: boolean = false;
   footerClass: string = '';
-  constructor(public dialog: MatDialog) {}
+  totalQuestions: number = 0; // Total number of questions in the quiz
+  answeredQuestions: number = 0; // Number of questions answered so far
+
+  constructor(public dialog: MatDialog) {
+    this.totalQuestions = this.questions.length
+  }
 
   selectChoice(choice: string): void {
     this.selectedChoice = choice;
@@ -63,15 +68,18 @@ export class QuizComponent {
 
 
   submitAnswer(): void {
+    this.answerSubmitted = true; // Set this to true to indicate that an answer has been submitted
+    this.answeredQuestions++; 
     const correct = this.selectedChoice === this.questions[this.currentQuestionIndex].answer;
     this.isAnswerCorrect = correct;
     
     if (correct) {
       this.score++;
     }
+
+
     
-    this.answerSubmitted = true; // Set this to true to indicate that an answer has been submitted
-  
+    
     // Open the dialog for correct/incorrect answer
     // this.dialog.open(AnswerDialogComponent, {
     //   width: '600px',
@@ -88,7 +96,6 @@ export class QuizComponent {
 
     setTimeout(() => {
       this.showFooter = false; // Hide the footer after some time
-      this.goToNextQuestion(); // Move to the next question
 
     }, 3000); // Adjust the time as needed
 
@@ -97,6 +104,7 @@ export class QuizComponent {
   
   // Add method to move to the next question which can be called after closing the dialog
   goToNextQuestion(): void {
+    this.showFooter = false
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
       this.selectedChoice = null;
@@ -106,15 +114,25 @@ export class QuizComponent {
       this.showResult = true;
     }
   }
+
+  showQuizResults(): void {
+    this.showFooter = false
+    this.showResult = true;
+  }
+  
   
 
   restartQuiz(): void {
     this.currentQuestionIndex = 0;
     this.score = 0;
     this.showResult = false;
+    this.answeredQuestions = 0
+    this.selectedChoice = null
+    this.answerSubmitted = false
   }
 
   nextQuestion(): void {
+    this.showFooter = false
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
       this.selectedChoice = null; // Reset the selected choice
@@ -124,6 +142,8 @@ export class QuizComponent {
   }
   
   previousQuestion(): void {
+    this.showFooter = false
+
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
       this.selectedChoice = null; // Reset the selected choice
@@ -131,5 +151,10 @@ export class QuizComponent {
       this.isAnswerCorrect = null; // Reset the correctness state
     }
   }
+
+  allQuestionsAnswered(): boolean {
+    return this.answeredQuestions === this.totalQuestions;
+  }
+  
   
 }

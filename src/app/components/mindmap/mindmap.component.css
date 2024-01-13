@@ -174,11 +174,7 @@
     cursor: pointer;
   }
   
-  .graph-container {
-    flex-grow: 1;
-    /* Keep the rest of your graph container styles */
-  }
-  
+
   
   .search-bar {
     width: 100%;
@@ -192,17 +188,8 @@
   
   
   .graph-container {
-    flex-grow: 1; /* Allow the graph container to take up the remaining space */
-    overflow: auto; /* Add scroll only if needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #111b21; /* Same as app-container for consistency */
-  }
-  
-  .graph-container {
-    position: relative;
-    /* ... other styles ... */
+    width: 80vw;
+    height: 80vw;
   }
   
   .zoom-controls {
@@ -614,7 +601,10 @@
   }
   
   
-  /* :root ::ng-deep .ngx-charts {
-    width: 1200px !important;
-    height: 1200px !important;
-  } */
+  :root ::ng-deep .ngx-charts {
+    /* width: 1200px !important;
+    height: 1200px !important; */
+    display: grid !important;
+
+
+  }

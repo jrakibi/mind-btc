@@ -70,6 +70,7 @@
     background-color: #111b21;
     color: #eeede1;
     cursor: pointer;
+    margin-right: 30px;
   }
   
   .nav-button:hover,
@@ -97,7 +98,7 @@
   }
 
   .navigation-buttons .nav-button {
-    margin-right: 10px; 
+    margin-right: 5px; 
   }
 
   .choice-card {
@@ -105,7 +106,7 @@
   }
 
   .choice-card.selected {
-    border: 3px solid #eeede1; /* Or any other style you prefer for highlighting */
+    border: 3px solid #ffd700; /* Or any other style you prefer for highlighting */
   }
   
 

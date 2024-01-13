@@ -1,6 +1,6 @@
     <!-- Graph Container -->
-
-    <ngx-graph class="chart-container" [nodes]="nodes" [links]="links" [layout]="layout" [enableZoom]="true"
+    <div class="graph-container">
+           <ngx-graph class="chart-container" [nodes]="nodes" [links]="links" [layout]="layout" [enableZoom]="true"
         [autoZoom]="false" [panOnZoom]="true" [autoCenter]="true">
 
         <ng-template #nodeTemplate let-node>
@@ -185,3 +185,4 @@
             <i class="fas fa-minus"></i>
         </button>
     </div>
+    </div>     
