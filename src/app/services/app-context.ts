@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MindMapperResponse } from '../components/model/mind-map.api.interfaces';
+import { MindMapperResponse } from '../model/mind-map.api.interfaces';
 
 @Injectable({
   providedIn: 'root'

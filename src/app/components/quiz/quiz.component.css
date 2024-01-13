@@ -1,0 +1,205 @@
+.quiz-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #111b21;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Needed for absolute positioning of children */
+    padding-bottom: 100px; /* Extra padding to account for the button container */
+  }
+  
+  .title-container {
+    margin-bottom: 20px;
+  }
+  
+  .question-container {
+    min-height: 100px; /* Fixed height for the question container */
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    color: #ffd700;
+  }
+  
+  h2 {
+    color: #fff;
+  }
+  
+  .choices-container {
+    display: flex;
+    justify-content: space-around;
+    min-height: 150px; /* Fixed height for the choices container */
+    margin-bottom: 20px;
+  }
+  
+  .choice-card {
+    flex-grow: 1;
+    flex-basis: calc(25% - 10px); /* Adjust based on the number of choices */
+    /* background-color: #ffd700; */
+    color: #eeede1;
+    border: 1px solid #eeede1;
+    padding: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .choice-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    /* justify-content: space-between; */
+    position: absolute; /* Position the buttons at the bottom */
+    bottom: 20px; /* Keep buttons 20px from the bottom */
+    left: 20px;
+    right: 20px;
+  }
+  
+  .nav-button,
+  .submit-button {
+    padding: 10px 20px;
+    border: 0.7px solid #eeede1;
+    background-color: #111b21;
+    color: #eeede1;
+    cursor: pointer;
+  }
+  
+  .nav-button:hover,
+  .submit-button:hover {
+    background-color: #555;
+  }
+  
+  .nav-button:disabled,
+  .submit-button:disabled {
+    background-color: #7777774f;
+    cursor: not-allowed;
+    color: #eeede1;
+  }
+  
+  .submit-button {
+    background-color: #ffd700;
+    color: rgb(0, 0, 0);
+  }
+  
+  .result-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navigation-buttons .nav-button {
+    margin-right: 10px; 
+  }
+
+  .choice-card {
+    cursor: pointer;
+  }
+
+  .choice-card.selected {
+    border: 3px solid #eeede1; /* Or any other style you prefer for highlighting */
+  }
+  
+
+  .result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+  }
+  
+  .score-card {
+    background: #111b21;
+    color: #ffd700;
+    padding: 40px;
+    border-radius: 10px;
+    /* max-width: 400px; */
+    width: 100%;
+  }
+  
+  .score-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .score-details {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .score-value {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0;
+  }
+  
+  .restart-button {
+    background-color: #ffd700;
+    color: #111b21;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .restart-button:hover {
+    background-color: #e6c300;
+  }
+  
+
+
+  
+  .choice-card.correct,
+  .choice-card.incorrect,
+  .choice-card.selected {
+    visibility: visible; /* Ensure the selected, correct, and incorrect choices are visible */
+  }
+  
+  /* Add styles for correct and incorrect choices */
+  .choice-card.correct {
+    background-color: #28a745; /* Green color for correct answer */
+    /* Other styles for correct answer */
+  }
+  
+  .choice-card.incorrect {
+    background-color: #dc3545; /* Red color for incorrect answer */
+    /* Other styles for incorrect answer */
+  }
+  
+
+  
+  /* Footer styles */
+.answer-footer {
+    width: 100%;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .correct-footer {
+    background-color: #28a745; /* Green for correct answer */
+  }
+  
+  .incorrect-footer {
+    background-color: #dc3545; /* Red for incorrect answer */
+  }
+  

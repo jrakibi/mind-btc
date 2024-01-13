@@ -16,6 +16,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgAnimatedBorderModule } from 'ng-animated-border';
 import { StoryBoardComponent } from './components/story-board/story-board.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HomeComponent,
     MindmapComponent,
     StoryBoardComponent,
-    DashboardComponent
+    DashboardComponent,
+    QuizComponent,
+    AnswerDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
     DragDropModule,
 
-    NgAnimatedBorderModule
+    NgAnimatedBorderModule,
+    MatDialogModule
 
   ],
   providers: [],

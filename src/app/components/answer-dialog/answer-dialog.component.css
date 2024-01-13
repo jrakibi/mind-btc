@@ -1,0 +1,83 @@
+/* Dialog Container */
+.dialog-container {
+    background: #ffffff; /* Updated background color */
+    padding: 36px;
+  }
+  
+  /* Dialog Content */
+  .dialog-content {
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  /* Dialog Header */
+  .dialog-header {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Dialog Icons */
+  .dialog-icon {
+    font-size: 2em;
+  }
+  
+  .correct-answer .dialog-icon {
+    color: #28a745; /* Green color for correct answer */
+  }
+  
+  .wrong-answer .dialog-icon {
+    color: #dc3545; /* Red color for wrong answer */
+  }
+  
+  /* Dialog Title */
+  .dialog-title {
+    margin: 10px 0 0;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .correct-answer .dialog-title {
+    color: #28a745; /* Green color for correct answer */
+  }
+  
+  .wrong-answer .dialog-title {
+    color: #dc3545; /* Red color for wrong answer */
+  }
+  
+  /* Dialog Body */
+  .dialog-body p {
+    color: #555;
+    font-size: 16px;
+  }
+  
+  /* Dialog Actions */
+  .dialog-actions {
+    justify-content: center;
+    padding: 8px 24px;
+  }
+  
+  /* Dialog Close Button */
+  .dialog-close-button {
+    border-radius: 4px;
+    border: 1px solid;
+    padding: 8px 16px;
+    background-color: #00000000;
+    color: #000;
+    margin-top: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .dialog-close-button:hover {
+    background-color: #0c1216;
+    color: white;
+  }
+  
+  /* Overlay Backdrop */
+  .cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  

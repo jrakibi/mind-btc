@@ -50,10 +50,11 @@
 
             <!-- Graph Container -->
             <div class="graph-container"
-                [ngClass]="{'align-center': activeWorkspace == Workspace.MindMap, 'align-flex-start': activeWorkspace == Workspace.StoryBoard}">
+                [ngClass]="{'align-center': activeWorkspace != Workspace.StoryBoard, 'align-flex-start': activeWorkspace == Workspace.StoryBoard}">
 
                 <app-mindmap *ngIf="activeWorkspace == Workspace.MindMap"></app-mindmap>
                 <app-storyboard *ngIf="activeWorkspace == Workspace.StoryBoard"></app-storyboard>
+                <app-quiz *ngIf="activeWorkspace == Workspace.Quiz"></app-quiz>
 
             </div>
 

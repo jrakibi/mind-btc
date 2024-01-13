@@ -614,3 +614,7 @@
   }
   
   
+  /* :root ::ng-deep .ngx-charts {
+    width: 1200px !important;
+    height: 1200px !important;
+  } */

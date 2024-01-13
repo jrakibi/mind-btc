@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DialogueResponse, MindMapperResponse } from '../components/model/mind-map.api.interfaces';
+import { DialogueResponse, MindMapperResponse } from '../model/mind-map.api.interfaces';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,15 @@
+<div class="dialog-container">
+    <mat-dialog-content class="dialog-content">
+        <div class="dialog-header" [ngClass]="{'correct-answer': data.isCorrect, 'wrong-answer': !data.isCorrect}">
+          <i class="dialog-icon" [ngClass]="{'fa': true, 'fa-check-circle': data.isCorrect, 'fa-times-circle': !data.isCorrect}"></i>
+          <h1 class="dialog-title">{{ data.isCorrect ? 'Correct Answer!' : 'Wrong Answer!' }}</h1>
+        </div>
+        <div class="dialog-body">
+          <p>{{ data.explanation }}</p>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions class="dialog-actions">
+        <button mat-button mat-dialog-close class="dialog-close-button">Close</button>
+      </mat-dialog-actions>
+      
+</div>

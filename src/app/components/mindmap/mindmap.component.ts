@@ -6,7 +6,7 @@ import { Edge, GraphComponent, Layout, Node } from '@swimlane/ngx-graph';
 import { LayoutMindMap, MindMap, MyLink, MyNode } from 'src/app/interfaces/mindmap.interface';
 import { AppContext } from 'src/app/services/app-context';
 import { OpenaiService } from 'src/app/services/open-ai.service';
-import { MindMapperResponse } from '../model/mind-map.api.interfaces';
+import { MindMapperResponse } from '../../model/mind-map.api.interfaces';
 import { Workspace } from 'src/app/dashboard/dashboard.component';
 
 // Component Decorator with metadata
@@ -131,6 +131,7 @@ export class MindmapComponent implements OnInit, AfterViewInit {
     const links: MyLink[] = [];
     let estimatedHeight = this.estimateHeight(jsonData.title, 300);
 
+    debugger 
     const rootNode: MyNode = {
 
       id: this.generateId(),
@@ -267,7 +268,6 @@ export class MindmapComponent implements OnInit, AfterViewInit {
 
 
   private estimateHeight(text: string, nodeWidth: number): number {
-
     const lineHeight = 20; // Set an approximate line height
     const charsPerLine = nodeWidth / 10; // Estimate chars per line based on an average character width
     const lineCount = Math.ceil(text.length / charsPerLine);
