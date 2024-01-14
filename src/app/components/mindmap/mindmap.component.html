@@ -1,11 +1,11 @@
-    <!-- Graph Container -->
-    <div class="graph-container">
-           <ngx-graph class="chart-container" [nodes]="nodes" [links]="links" [layout]="layout" [enableZoom]="true"
+<!-- Graph Container -->
+<div class="graph-container">
+    <ngx-graph class="chart-container" [nodes]="nodes" [links]="links" [layout]="layout" [enableZoom]="true"
         [autoZoom]="false" [panOnZoom]="true" [autoCenter]="true">
 
         <ng-template #nodeTemplate let-node>
             <svg:g class="node"
-                [ngClass]="{'level-0': node.level === 0, 'level-1': node.level === 1, 'level-2': node.level === 2}"
+                [ngClass]="{'level-0': node.level === 0, 'level-1': node.level === 1, 'level-2': node.level === 2, 'level-3': node.level === 3, 'level-4': node.level === 4, 'level-5': node.level === 5}"
                 [attr.transform]="'translate(' + (node.fixedWidth / 2) + ',' + (node.dynamicHeight / 2) + ')'">
 
                 <ng-container *ngIf="node.level === 0">
@@ -21,25 +21,24 @@
                               color: white;
                               border-radius: 10px;"></i> <!-- Pencil icon for the main topic -->
                             <div class="root-node-text">
-                                <div class="main-topic-title" style="font-size: 18px !important;">Main Topic: </div>
-                                <div class="main-topic-subtitle" style="font-size: 20px !important;">{{ node.label }}
+                                <div class="main-topic-title" style="font-size: 26px !important;">Main Topic: </div>
+                                <div class="main-topic-subtitle" style="font-size: 26px !important;">{{ node.label }}
                                 </div>
                             </div>
                         </div>
                     </svg:foreignObject>
                 </ng-container>
 
-
-
-
-
-
-
-
-
-
-
-
+                <!-- <ng-container *ngIf="node.level === 1">
+                    <svg:rect [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight" stroke="black"
+                        [attr.fill]="node.level === 1 ? '#f4f4f4' : '#e8e8e8'"></svg:rect>
+                    <svg:foreignObject [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight">
+                        <div xmlns="http://www.w3.org/1999/xhtml" class="node-content level-one-node">
+                            <div class="node-header">{{ node.label }}</div>
+                            <div class="node-body" [innerHTML]="node.data.description || node.data.references"></div>
+                        </div>
+                    </svg:foreignObject>
+                </ng-container> -->
 
                 <!-- Level 1 Summary Node -->
                 <ng-container *ngIf="node.level === 1 && node.label.startsWith('Summary')">
@@ -84,30 +83,13 @@
                                 <ul>
 
 
-
-
-                                    <li><span class="reference-dot"></span><a
-                                            href="https://bitcoinops.org/en/topics/assumeutxo" target="_blank">{{
-                                            truncateUrl('https://bitcoinops.org/en/topics/assumeutxo', 30)
-                                            }}</a></li>
-                                    <li><span class="reference-dot"></span><a
-                                            href="https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-April/016891.html "
-                                            target="_blank">{{
-                                            truncateUrl('https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-April/016891.html',
-                                            30) }}</a></li>
-                                    <li><span class="reference-dot"></span><a
-                                            href="https://bitcoin.stackexchange.com/questions/117534#117535 "
-                                            target="_blank">{{
-                                            truncateUrl('https://bitcoin.stackexchange.com/questions/117534#117535',
-                                            30) }}</a></li>
-                                    <li><span class="reference-dot"></span><a
-                                            href="https://btctranscripts.com/bitcoin-core-dev-tech/2019-06/2019-06-07-assumeutxo "
-                                            target="_blank">{{
-                                            truncateUrl('https://btctranscripts.com/bitcoin-core-dev-tech/2019-06/2019-06-07-assumeutxo',
-                                            30) }}</a></li>
-                                    <!-- [4]: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-April/016825.html 
-[5]: https://btctranscripts.com/bitcoin-core-dev-tech/2023-09/assumeUTXO-update  -->
-                                    <!-- Add more list items as needed -->
+                                    <li *ngFor="let reference of node.data.references">
+                                        <span class="reference-dot"></span>
+                                        <a href="https://bitcoinops.org/en/topics/assumeutxo" target="_blank">{{
+                                            truncateUrl(reference, 30)
+                                            }}
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -115,10 +97,6 @@
                 </ng-container>
 
 
-
-
-
-                <!-- Add additional ng-container templates for other levels as needed -->
 
 
 
@@ -139,8 +117,7 @@
                     </svg:foreignObject>
                 </ng-container>
 
-                <!-- Level 2 node -->
-                <ng-container *ngIf="node.level === 3">
+                <ng-container *ngIf="node.level > 2">
                     <svg:rect [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight"
                         [attr.fill]="node.data.color" stroke="black"></svg:rect>
                     <svg:foreignObject [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight">
@@ -151,19 +128,12 @@
                                     {{ node.label }}
                                 </div> -->
 
-
-
-
-
                             <span class="node-label">{{ node.label }}</span>
-                            <i class="fas fa-ellipsis-v node-options-icon"></i>
+                            <!-- <i class="fas fa-ellipsis-v node-options-icon"></i> -->
 
                         </div>
                     </svg:foreignObject>
                 </ng-container>
-
-
-
             </svg:g>
         </ng-template>
 
@@ -171,11 +141,8 @@
             <svg:path class="edge-path" [attr.d]="calculateCustomPath(link)" stroke-width="2" stroke="black">
             </svg:path>
         </ng-template>
-
-
-        <!-- You can add more templates for labels, arrows, etc., if needed -->
-
     </ngx-graph>
+
 
     <div class="zoom-controls">
         <button class="zoom-button zoom-in" (click)="zoomIn()">
@@ -185,4 +152,4 @@
             <i class="fas fa-minus"></i>
         </button>
     </div>
-    </div>     
+</div>

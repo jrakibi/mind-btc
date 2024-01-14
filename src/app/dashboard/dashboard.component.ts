@@ -8,7 +8,9 @@ import { AppContext } from 'src/app/services/app-context';
 import { OpenaiService } from 'src/app/services/open-ai.service';
 
 export enum Workspace {
-  MindMap = "MindMaps",
+  Problem = "Problem",
+  // MindMap = "MindMaps",
+  MindMap = "How It works ?",
   StoryBoard = "StoryBoard",
   Quiz = "Quiz",
   Coding = "Coding"
@@ -115,6 +117,13 @@ export class DashboardComponent implements OnInit {
 
 
      this.layoutsMindMapper = [
+      {
+        title: 'Problem',
+        // imageUrl: 'https://source.unsplash.com/random/200x120',
+        // imageUrl: 'assets/btcIllustrated/mindmap/test.png',
+        imageUrl: 'assets/btcIllustrated/icons/mindmap.png',
+        tag: Workspace.Problem
+      },
        {
          title: 'Mind Map 2',
          // imageUrl: 'https://source.unsplash.com/random/200x120',

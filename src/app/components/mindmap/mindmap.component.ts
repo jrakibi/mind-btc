@@ -45,35 +45,112 @@ export class MindmapComponent implements OnInit, AfterViewInit {
       tone: new FormControl(''),
     });
     this.jsonData = {
-      "title": "assumeUTXO",
-      "summary": "assumeUTXO is a tool used in Bitcoin development to simulate the state of the Unspent Transaction Output (UTXO) set.",
-      "details": [
-        {
-          "title": "Simulating UTXO Set",
-          "explanations": [
-            "The UTXO set represents all the unspent transaction outputs in the Bitcoin network.",
-            "assumeUTXO is a tool that allows developers to create a simulated UTXO set for testing purposes.",
-            "This tool helps developers analyze and understand the behavior of their code without interacting with the real Bitcoin network."
-          ]
-        },
-        {
-          "title": "Testing Bitcoin Code",
-          "explanations": [
-            "assumeUTXO is particularly useful for testing Bitcoin code that relies on the state of the UTXO set.",
-            "Developers can use assumeUTXO to create specific scenarios and test how their code handles different UTXO states.",
-            "By simulating different UTXO sets, developers can ensure their code functions correctly in various scenarios."
-          ]
-        },
-        {
-          "title": "Debugging and Optimization",
-          "explanations": [
-            "assumeUTXO can also be used for debugging and optimizing Bitcoin code.",
-            "Developers can simulate specific UTXO sets to identify potential issues or bottlenecks in their code.",
-            "By analyzing the behavior of their code with different UTXO sets, developers can make improvements and optimize performance."
-          ]
-        }
-      ]
+      "topic": {
+        "id": "derivation_path_bitcoin",
+        "name": "Derivation Path in Bitcoin",
+        "summary": "A derivation path is a crucial component in Bitcoin wallets, determining how individual addresses are generated from a master seed. It's part of the hierarchical deterministic (HD) wallet structure, allowing for organized and secure management of multiple Bitcoin addresses and keys.",
+        "subtopics": [
+          {
+            "id": "hd_wallets_basics",
+            "name": "Basics of Hierarchical Deterministic (HD) Wallets",
+            "points": [
+              {
+                "id": "hd_wallets_definition",
+                "name": "Definition of HD Wallets",
+                "details": [
+                  "HD wallets generate a hierarchical tree-like structure of keys from a single master seed.",
+                  "This structure enhances security and privacy by enabling the generation of new addresses for each transaction."
+                ],
+                "references": []
+              },
+              {
+                "id": "master_seed_role",
+                "name": "Role of Master Seed",
+                "details": [
+                  "The master seed is a 128-bit to 256-bit random number, often represented as a mnemonic phrase.",
+                  "It is the root from which all private and public keys are derived in an HD wallet."
+                ],
+                "references": []
+              }
+            ],
+            "references": []
+          },
+          {
+            "id": "derivation_paths_understanding",
+            "name": "Understanding Derivation Paths",
+            "points": [
+              {
+                "id": "derivation_path_definition",
+                "name": "Definition and Structure",
+                "details": [
+                  "A derivation path specifies the route taken through the hierarchical tree to derive a particular key or address.",
+                  "The path is typically noted in a format like m/44'/0'/0'/0/0."
+                ],
+                "references": []
+              },
+              {
+                "id": "derivation_path_components",
+                "name": "Components of a Derivation Path",
+                "details": [
+                  {
+                    "id": "purpose_field",
+                    "name": "Purpose Field",
+                    "details": [
+                      "Typically set to 44', adhering to BIP44 standards.",
+                      "Indicates the type of wallet, such as multi-currency or Bitcoin-specific."
+                    ],
+                    "references": []
+                  },
+                  {
+                    "id": "coin_type",
+                    "name": "Coin Type",
+                    "details": [
+                      "Specifies the cryptocurrency, with 0' for Bitcoin.",
+                      "Allows for multi-currency HD wallets."
+                    ],
+                    "references": []
+                  },
+                  {
+                    "id": "account",
+                    "name": "Account",
+                    "details": [
+                      "Differentiates between multiple accounts for the same coin type.",
+                      "Allows users to separate funds for different purposes."
+                    ],
+                    "references": []
+                  },
+                  {
+                    "id": "change",
+                    "name": "Change",
+                    "details": [
+                      "Distinguishes between external addresses (0) used for receiving funds and internal (1) for change and transaction linking.",
+                      "Enhances privacy by separating transaction types."
+                    ],
+                    "references": []
+                  },
+                  {
+                    "id": "address_index",
+                    "name": "Address Index",
+                    "details": [
+                      "Represents the individual addresses generated under the account.",
+                      "Sequentially increases as new addresses are required."
+                    ],
+                    "references": []
+                  }
+                ],
+                "references": []
+              }
+            ],
+            "references": []
+          }
+        ],
+        "references": [
+          "https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki",
+          "https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki"
+        ]
+      }
     }
+    
   }
 
   // Lifecycle hooks
@@ -126,118 +203,142 @@ export class MindmapComponent implements OnInit, AfterViewInit {
     return `node-${this.idCounter++}`;
   }
 
+
+
   private transformToGraphData(jsonData: any): { nodes: MyNode[], links: MyLink[] } {
     const nodes: MyNode[] = [];
     const links: MyLink[] = [];
-    let estimatedHeight = this.estimateHeight(jsonData.title, 300);
+    let estimatedHeight: number;
 
-    debugger 
+    // Root Node
     const rootNode: MyNode = {
-
       id: this.generateId(),
-      label: jsonData.title,
-      data: { summary: jsonData.summary },
-      fixedWidth: 300, // Set this to your desired width
-      dynamicHeight: estimatedHeight + 40, // Set the estimated height
+      label: jsonData.topic.name,
+      data: {},
+      fixedWidth: 450,
+      // dynamicHeight: this.estimateHeight(jsonData.topic.name, 300),
+      dynamicHeight: 170,
       level: 0
     };
     nodes.push(rootNode);
 
-    // Create Summary Node
+    // Summary Node
     const summaryNode: MyNode = {
       id: this.generateId(),
-      label: 'Summary\n' + jsonData.summary, // Add the summary text here
-      data: { summary: jsonData.summary },
-      fixedWidth: 400, // Width can be adjusted as needed
-      dynamicHeight: this.estimateHeight('Summary\n' + jsonData.summary, 200), // Adjust the estimateHeight call as needed
-      level: 1 // New intermediate level
+      label: 'Summary',
+      data: { summary: jsonData.topic.summary },
+      fixedWidth: 400,
+      dynamicHeight: this.estimateHeight(jsonData.topic.summary, 450),
+      level: 1
     };
     nodes.push(summaryNode);
+    links.push({ id: this.generateId(), source: rootNode.id, target: summaryNode.id });
 
-    // Create Section Node
+    // Sections Node
     const sectionNode: MyNode = {
       id: this.generateId(),
-      label: 'Sections\n', // Add the summary text here
-      data: { section: "Sections" },
-      fixedWidth: 400, // Width can be adjusted as needed
-      dynamicHeight: this.estimateHeight('Sections\n', 200) + 50, // Adjust the estimateHeight call as needed
-      level: 1 // New intermediate level
+      label: 'Sections',
+      data: {},
+      fixedWidth: 400,
+      dynamicHeight: 130, // Adjust as needed
+      level: 1
     };
     nodes.push(sectionNode);
+    links.push({ id: this.generateId(), source: rootNode.id, target: sectionNode.id });
 
-    // Create References Node with dummy data
+    // References Node
     const referencesNode: MyNode = {
       id: this.generateId(),
-      label: 'References\n1. Bitcoin Whitepaper\n2. Satoshi Nakamoto’s Forum Posts\n3. Other Relevant Research', // Replace with actual references
-      data: { explanations: 'References\n1. Bitcoin Whitepaper\n2. Satoshi Nakamoto’s Forum Posts\n3. Other Relevant Research' },
-      fixedWidth: 400, // Width can be adjusted as needed
-      dynamicHeight: this.estimateHeight('References\n1. Bitcoin Whitepaper\n2. Satoshi Nakamoto’s Forum Posts\n3. Other Relevant Research', 200), // Adjust the estimateHeight call as needed
-      level: 1 // New intermediate level
+      label: 'References',
+      data: { references: jsonData.topic.references },
+      fixedWidth: 400,
+      dynamicHeight: this.estimateHeight(jsonData.topic.references.join('\n'), 400),
+      level: 1
     };
     nodes.push(referencesNode);
+    links.push({ id: this.generateId(), source: rootNode.id, target: referencesNode.id });
 
-    links.push({
-      id: this.generateId(),
-      source: rootNode.id,
-      target: summaryNode.id,
-      label: '' // Optional: add a label if needed
-    });
-    links.push({
-      id: this.generateId(),
-      source: rootNode.id,
-      target: referencesNode.id,
-      label: '' // Optional: add a label if needed
-    });
-    links.push({
-      id: this.generateId(),
-      source: rootNode.id,
-      target: sectionNode.id,
-      label: '' // Optional: add a label if needed
-    });
-
-    jsonData.details.forEach((detail: any) => {
-      let estimatedHeight = this.estimateHeight(detail.title, 200);
-
-      const detailNode: MyNode = {
+    // Iterate over sections and create nodes
+    jsonData.topic.subtopics.forEach((section: any) => {
+      const sectionSubNode: MyNode = {
         id: this.generateId(),
-        label: detail.title,
-        data: { explanations: detail.explanations },
-        fixedWidth: 400, // Set this to your desired width
-        dynamicHeight: estimatedHeight + 40, // Set the estimated height
-        level: 2 // Now this is level 2
+        label: section.name,
+        data: {},
+        fixedWidth: 400,
+        dynamicHeight: this.estimateHeight(section.name, 400),
+        level: 2
       };
-      nodes.push(detailNode);
+      nodes.push(sectionSubNode);
+      links.push({ id: this.generateId(), source: sectionNode.id, target: sectionSubNode.id });
 
-      links.push({
-        id: this.generateId(),
-        source: sectionNode.id, // Changed from rootNode.id to summaryNode.id
-        target: detailNode.id,
-        label: '' // Optional: add a label if needed
-      });
-
-      detail.explanations.forEach((exp: any) => {
-        let estimatedHeight = this.estimateHeight(exp, 500) + 40;
-
-        const explanationNode: MyNode = {
+      // Iterate over points in each section
+      section.points.forEach((point: any) => {
+        estimatedHeight = this.estimateHeight(point.name, 300);
+        const pointNode: MyNode = {
           id: this.generateId(),
-          label: exp,
-          data: {},
-          fixedWidth: 500, // Set this to your desired width
-          dynamicHeight: estimatedHeight, // Set the estimated height
+          label: point.name,
+          data: { details: point.details },
+          fixedWidth: 300,
+          dynamicHeight: estimatedHeight,
           level: 3
         };
-        nodes.push(explanationNode);
+        nodes.push(pointNode);
+        links.push({ id: this.generateId(), source: sectionSubNode.id, target: pointNode.id });
 
-        links.push({
-          id: this.generateId(),
-          source: detailNode.id,
-          target: explanationNode.id
+        // If point has subpoints, create nodes for them
+        point.details.forEach((detail: any, index: number) => {
+          if (typeof detail === 'string') {
+            // Handle case where detail is a string
+            const detailNode: MyNode = {
+              id: this.generateId(),
+              label: detail,
+              data: {},
+              fixedWidth: 300,
+              dynamicHeight: this.estimateHeight(detail, 300),
+              level: 4
+            };
+            nodes.push(detailNode);
+            links.push({ id: this.generateId(), source: pointNode.id, target: detailNode.id });
+          } else {
+            // Handle case where detail is an object with subpoints
+            const subpointNode: MyNode = {
+              id: this.generateId(),
+              label: detail.name,
+              data: { subpoints: detail.details },
+              fixedWidth: 300,
+              dynamicHeight: this.estimateHeight(detail.name, 300),
+              level: 4
+            };
+            nodes.push(subpointNode);
+            links.push({ id: this.generateId(), source: pointNode.id, target: subpointNode.id });
+
+            // Now add nodes for each subpoint
+            detail.details.forEach((subDetail: string) => {
+              const subDetailNode: MyNode = {
+                id: this.generateId(),
+                label: subDetail,
+                data: {},
+                fixedWidth: 300,
+                dynamicHeight: this.estimateHeight(subDetail, 300),
+                level: 5
+              };
+              nodes.push(subDetailNode);
+              links.push({ id: this.generateId(), source: subpointNode.id, target: subDetailNode.id });
+            });
+          }
         });
       });
     });
 
     return { nodes, links };
   }
+
+
+
+
+
+
+
   calculateCustomPath(link: MyLink): string {
     // Get the source and target nodes based on the IDs in the link
     const sourceNode = this.nodes.find(node => node.id === link.source);
@@ -268,7 +369,7 @@ export class MindmapComponent implements OnInit, AfterViewInit {
 
 
   private estimateHeight(text: string, nodeWidth: number): number {
-    const lineHeight = 20; // Set an approximate line height
+    const lineHeight = 30; // Set an approximate line height
     const charsPerLine = nodeWidth / 10; // Estimate chars per line based on an average character width
     const lineCount = Math.ceil(text.length / charsPerLine);
     if (lineCount == 1) {
@@ -313,4 +414,18 @@ export class MindmapComponent implements OnInit, AfterViewInit {
     return url;
   }
 
+  getLevelColor(level: number): string {
+    switch (level) {
+      case 1:
+        return '#f4f4f4'; // Light grey for summary and references
+      case 2:
+        return '#dee2e6'; // Slightly darker grey for sections
+      case 3:
+        return '#ced4da'; // Even darker for points
+      // Add more cases as needed for deeper levels
+      default:
+        return '#e9ecef'; // Default color for any other level
+    }
+  }
+  
 }
