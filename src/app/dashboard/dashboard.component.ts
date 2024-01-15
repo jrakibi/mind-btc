@@ -141,6 +141,13 @@ export class DashboardComponent implements OnInit {
          tag: Workspace.StoryBoard
        },
        {
+        title: 'Deep Dive',
+        // imageUrl: null,
+        // imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
+        imageUrl: 'assets/btcIllustrated/icons/deepdive.png',
+        tag: Workspace.Deepdive
+       },
+       {
          title: 'Quiz',
          // imageUrl: 'https://source.unsplash.com/random/200x120',
          // imageUrl: null,
@@ -154,13 +161,6 @@ export class DashboardComponent implements OnInit {
          // imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
          imageUrl: 'assets/btcIllustrated/icons/code.png',
          tag: Workspace.Coding
-       },
-       {
-        title: 'Deep Dive',
-        // imageUrl: null,
-        // imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
-        imageUrl: 'assets/btcIllustrated/icons/deepdive.png',
-        tag: Workspace.Deepdive
        }
      ];
    } else {

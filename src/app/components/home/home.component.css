@@ -9,7 +9,7 @@
 }
 
 .container {
-    border: 1px solid #FCF5EB;
+    /* border: 1px solid #FCF5EB; */
     padding: 20px;
     max-width: 45%; /* Maximum width */
     width: 100%; /* Make it responsive */
@@ -244,7 +244,7 @@
     justify-content: center;
     align-items: center;
     border: 3px solid #0000 !important;
-    border-radius: 12px;
+    border-radius: 50px;
     background: linear-gradient(#111b21, #111b21) padding-box, linear-gradient( var(--angle), #d49a72, #9ad7d1 ) border-box;
     animation: 8s rotate linear infinite;
     margin: auto;

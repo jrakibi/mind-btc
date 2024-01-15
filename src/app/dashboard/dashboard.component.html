@@ -36,17 +36,27 @@
                     <span class="mind-map-title">{{jsonData.title}} </span>
                 </div>
                 <div class="header-center">
-                    <!-- Random icons -->
-                    <!-- <img src="assets/btcIllustrated/mindmap/notes.png" alt="User Icon" class="header-icon">
-                    <img src="assets/btcIllustrated/mindmap/mindmap.png" alt="User Icon" class="header-icon">
-                    <img src="assets/btcIllustrated/mindmap/chart.png" alt="User Icon" class="header-icon"> -->
+                    <!-- Center content if needed -->
                 </div>
                 <div class="header-right">
-                    <button class="generate-button">
+                    <!-- Export button -->
+                    <button class="action-button">
+                        <i class="fas fa-file-export" style="margin-right: 10px;"></i> Export
+                    </button>
+                    <!-- New Generation button -->
+                    <button class="action-button" [routerLink]="['/']" >
                         <i class="fas fa-robot" style="margin-right: 10px;"></i> New Generation
+                    </button>
+
+                    <button class="action-button feedback-button">
+                        Feedback
+                    </button>
+                    <button class="action-button beta-button">
+                        Beta
                     </button>
                 </div>
             </div>
+            
 
             <!-- Graph Container -->
             <div class="graph-container"

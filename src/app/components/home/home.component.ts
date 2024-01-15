@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   
   setSearchBarValue(topic: string) {
     // Set the value of userInput to the chosen topic
-    this.form.get('userInput')?.setValue(`Create Mind Map for ${topic}`);
+    this.form.get('userInput')?.setValue(`${topic}`);
     // Focus on the input field after setting its value
     setTimeout(() => {
       const inputElement: any = document.querySelector('.search-bar-ai input[type="text"]');

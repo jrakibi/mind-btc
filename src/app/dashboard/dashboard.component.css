@@ -122,8 +122,31 @@
     background-color: #111b21; /* Dark grey for the header */
     border-bottom: 1px solid #343436; /* Slightly lighter border */
     color: white; /* Light text for readability */
-  }
+}
   
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.action-button {
+  background-color: #111b21;
+  color: #eeede1;
+  border: 1px solid #eeede1;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px; /* Add space between buttons */
+}
+
+.action-button i {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.action-button:hover {
+  background-color: #262D31; /* Slightly lighter grey for hover effect */
+}
+
   .header-left .fas {
     margin-right: 8px;
     color: #eeede1; /* Subtle color for icons */
@@ -606,3 +629,14 @@
   }
   
   
+.feedback-button {
+  background-color: #eeede14d;
+    border: 0px solid #eeede1;
+    border-radius: 50px;
+}
+
+.beta-button {
+  background-color: #eeede14d;
+    border: 0px solid #eeede1;
+    border-radius: 50px;
+}

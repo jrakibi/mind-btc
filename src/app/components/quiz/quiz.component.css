@@ -23,7 +23,7 @@
   }
   
   h2 {
-    color: #fff;
+    color: #eeede1;
   }
   
   .choices-container {
@@ -75,12 +75,14 @@
   
   .nav-button:hover,
   .submit-button:hover {
-    background-color: #555;
+    background-color: #1a2b33;
+    color: #eeede1;
   }
   
   .nav-button:disabled,
   .submit-button:disabled {
-    background-color: #7777774f;
+    background-color: #111b21;
+    opacity: 0.3;
     cursor: not-allowed;
     color: #eeede1;
   }
@@ -188,7 +190,7 @@
 .answer-footer {
     width: 100%;
     padding: 20px;
-    color: #fff;
+    color: #eeede1;
     text-align: center;
     position: absolute;
     bottom: 0;
