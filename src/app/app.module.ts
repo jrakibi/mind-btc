@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
 import { ProblemComponent } from './components/problem/problem.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProblemComponent } from './components/problem/problem.component';
     DragDropModule,
 
     NgAnimatedBorderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [],

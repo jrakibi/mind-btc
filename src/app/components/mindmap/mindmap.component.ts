@@ -7,7 +7,6 @@ import { LayoutMindMap, MindMap, MyLink, MyNode } from 'src/app/interfaces/mindm
 import { AppContext } from 'src/app/services/app-context';
 import { OpenaiService } from 'src/app/services/open-ai.service';
 import { MindMapperResponse } from '../../model/mind-map.api.interfaces';
-import { Workspace } from 'src/app/dashboard/dashboard.component';
 
 // Component Decorator with metadata
 @Component({

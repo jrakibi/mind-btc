@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { MindMapperResponse } from '../model/mind-map.api.interfaces';
+import { StoryBoardResponse } from '../model/story-board.model';
+import { Workspace } from '../enums/workspace.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,11 @@ import { MindMapperResponse } from '../model/mind-map.api.interfaces';
 export class AppContext {
   private apiUrl = `${environment.apiUrl}/categories`;
   private mindMapperData: MindMapperResponse | null = null;
+  private storyBoardData: StoryBoardResponse | null = null;
+  public topic: string = "";
+  public activeWorkspace: Workspace = Workspace.MindMap;
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
 
   // Method to store data
@@ -21,5 +26,29 @@ export class AppContext {
   // Method to retrieve data
   retrieveMindMapperData(): MindMapperResponse | null {
     return this.mindMapperData;
+  }
+
+  storeStoryBoardData(data: StoryBoardResponse) {
+    this.storyBoardData = data;
+  }
+
+  retrieveStoryBoardData(): StoryBoardResponse | null {
+    return this.storyBoardData;
+  }
+
+  storeTopic(topic: string) {
+    this.topic = topic;
+  }
+
+  retrieveTopic(): string {
+    return this.topic;
+  }
+
+  storeActiveWorkspace(workspace: Workspace) {
+    this.activeWorkspace = workspace;
+  }
+
+  retrieveActiveWorkspace(): Workspace {
+    return this.activeWorkspace;
   }
 }

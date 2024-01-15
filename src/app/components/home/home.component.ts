@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Workspace } from 'src/app/enums/workspace.enum';
 import { AppContext } from 'src/app/services/app-context';
 import { OpenaiService } from 'src/app/services/open-ai.service';
 
@@ -16,6 +18,8 @@ export class HomeComponent implements OnInit {
   showDropdown: string | null = null;
   form: FormGroup;
   isLoading = false; // New property to manage loader state
+  Workspace = Workspace
+  activeWorkspace: Workspace = Workspace.StoryBoard
 
   constructor(
     private http: HttpClient,
@@ -23,14 +27,17 @@ export class HomeComponent implements OnInit {
     private openaiService: OpenaiService,
     private appContext: AppContext,
     ) {
+      
     this.form = new FormGroup({
-      userInput: new FormControl(''),
+      topic: new FormControl(''),
       workflow: new FormControl(''), // Assuming single selection for simplicity
       tone: new FormControl(''), // Assuming single selection for simplicity
     });
   }
 
   ngOnInit(): void {
+    // this.activeWorkspace = this.appContext.retrieveActiveWorkspace() ?? Workspace.MindMap
+    // this.showWorkspace(this.activeWorkspace)
   }
 
   submitData() {
@@ -38,11 +45,11 @@ export class HomeComponent implements OnInit {
     this.isLoading = true; 
 
     if (this.form.valid) {
-      const userInput = this.form.get('userInput')?.value;
-
+      const topic = this.form.get('topic')?.value;
+      this.appContext.storeTopic(topic)
       this.isLoading = false; // Hide loading animation
-      this.router.navigate(['dashboard']);
-      // this.openaiService.getMindMapper(userInput).subscribe({
+      this.showWorkspace(this.activeWorkspace)
+      // this.openaiService.getMindMapper(topic).subscribe({
       //   next: (response) => {
       //     debugger
       //     this.appContext.storeMindMapperData(response); // Store the data
@@ -66,21 +73,27 @@ export class HomeComponent implements OnInit {
     this.showDropdown = this.showDropdown === dropdownKey ? null : dropdownKey;
   }
 
-  selectDropdownOption(dropdownKey: string, option: string) {
+  selectWorkspace(dropdownKey: string, workspace: Workspace) {
     debugger
+    this.activeWorkspace = workspace
 
-    this.form.get(dropdownKey)?.setValue(option);
+    this.form.get(dropdownKey)?.setValue(workspace.toString());
     this.showDropdown = null; // Hide dropdown after selection
   }
 
+  selectTone(dropdownKey: string, option: string) {
+    debugger
+    this.form.get(dropdownKey)?.setValue(option);
+    this.showDropdown = null; // Hide dropdown after selection
+  }
 
   selectTag(prompt: string) {
   }
 
   
   setSearchBarValue(topic: string) {
-    // Set the value of userInput to the chosen topic
-    this.form.get('userInput')?.setValue(`${topic}`);
+    // Set the value of topic to the chosen topic
+    this.form.get('topic')?.setValue(`${topic}`);
     // Focus on the input field after setting its value
     setTimeout(() => {
       const inputElement: any = document.querySelector('.search-bar-ai input[type="text"]');
@@ -95,4 +108,13 @@ export class HomeComponent implements OnInit {
     debugger
     this.createMindMapClicked.emit(true)
   }
+
+  async showWorkspace(workspace: Workspace) {
+    debugger
+    this.activeWorkspace = workspace
+    this.appContext.storeActiveWorkspace(this.activeWorkspace)
+    this.router.navigate(['dashboard']);
+  }
+
+
 }

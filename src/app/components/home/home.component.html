@@ -7,11 +7,11 @@
     <div class="container">
         <form [formGroup]="form" (ngSubmit)="submitData()">
             <!-- <div class="box search-bar-ai">
-              <input type="text" formControlName="userInput" placeholder="Enter the bitcoin topic you're looking for ...">
+              <input type="text" formControlName="topic" placeholder="Enter the bitcoin topic you're looking for ...">
               <i class="fas fa-paper-plane search-icon" (click)="submitData()"></i>
             </div> -->
             <div class="box search-bar-ai">
-                <input type="text" formControlName="userInput"
+                <input type="text" formControlName="topic"
                     placeholder="Enter the bitcoin topic you're looking for ...">
                 <!-- Conditionally display either the icon or the loader -->
                 <i *ngIf="!isLoading" class="fas fa-paper-plane search-icon" (click)="submitData()"></i>
@@ -26,18 +26,18 @@
                         <i class="fas fa-brain"></i> <span>{{ form.value.workflow || 'Workflow' }}</span>
                     </button>
                     <div class="dropdown-content" [class.show]="showDropdown === 'workflow'">
-                        <a (click)="selectDropdownOption('workflow', 'Mind map')">
+                        <a (click)="selectWorkspace('workflow',  Workspace.MindMap)">
                             <i class="far fa-lightbulb"></i> Mind map
                         </a>
-                        <a (click)="selectDropdownOption('workflow', 'Notes')">
-                            <i class="far fa-lightbulb"></i> Notes
+                        <a (click)="selectWorkspace('workflow', Workspace.StoryBoard)">
+                            <i class="far fa-lightbulb"></i> StoryBoard
                         </a>
 
-                        <a (click)="selectDropdownOption('workflow', 'Analogy')">
-                            <i class="far fa-lightbulb"></i> Analogy
+                        <a (click)="selectWorkspace('workflow',  Workspace.Quiz)">
+                            <i class="far fa-lightbulb"></i> Quiz
                         </a>
 
-                        <a (click)="selectDropdownOption('workflow', 'Exercise')">
+                        <a (click)="selectWorkspace('workflow',  Workspace.Coding)">
                             <i class="far fa-lightbulb"></i> Coding Exercise
                         </a>
                     </div>
@@ -47,10 +47,10 @@
                         <i class="fas fa-comments"></i> {{ form.value.tone || 'Tone' }}
                     </button>
                     <div class="dropdown-content" [class.show]="showDropdown === 'tone'">
-                        <a (click)="selectDropdownOption('tone', 'Technical')">
+                        <a (click)="selectTone('tone', 'Technical')">
                             <i class="far fa-user"></i> Technical
                         </a>
-                        <a (click)="selectDropdownOption('tone', 'Non-technical')">
+                        <a (click)="selectTone('tone', 'Non-technical')">
                             <i class="far fa-user"></i> Non-technical
                         </a>
                     </div>

@@ -1,5 +1,5 @@
 import { Edge, GraphComponent, Node } from '@swimlane/ngx-graph';
-import { Workspace } from '../dashboard/dashboard.component';
+import { Workspace } from '../enums/workspace.enum';
 
 export interface MyNode extends Node {
     label: string;

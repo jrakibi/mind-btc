@@ -1,16 +1,20 @@
 <!-- Storyboard Container -->
 <div class="storyboard-container">
     <!-- Title of the storyboard -->
-    <h1>{{ storyData.title }}</h1>
+    <div class="loader-container" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <h1 *ngIf="!isLoading">{{ storyData?.title }}</h1>
 
     <!-- Scenes Container -->
-    <div class="scenes">
+  <div class="scenes" *ngIf="!isLoading">
         <!-- Scene Card -->
-        <div class="scene" *ngFor="let scene of storyData.scenes">
+        <div class="scene" *ngFor="let scene of storyData?.scenes">
             <!-- Scene Header -->
             <div class="scene-header">
-                <div class="scene-header-cell scene-number">Scene: {{ scene.sceneNumber }}</div>
-                <div class="scene-title">{{ scene.title }}</div>
+                <div class="scene-header-cell scene-number">Scene: {{ scene?.sceneNumber }}</div>
+                <div class="scene-title">{{ scene?.title }}</div>
             </div>
 
             <!-- Scene Content -->
@@ -19,7 +23,7 @@
                 <!-- Scene Image -->
                 <img src="{{ scene.imageUrl }}" alt="Scene image">
                 <div class="scene-content">
-                    <p>{{ scene.text }}</p>
+                    <p>{{ scene?.text }}</p>
                 </div>
     
             </div>
