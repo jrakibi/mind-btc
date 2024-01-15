@@ -1,0 +1,19 @@
+<div class="content-container">
+    <div class="problem-container">
+      <h2 class="card-title problem">PROBLEM</h2>
+      <div class="card problem-card">
+        <img src="{{ problemIcon }}" alt="Problem Icon" class="icon">
+        <p class="card-text">{{ problemText }}</p>
+      </div>
+    </div>
+  
+    <div class="solution-container">
+      <h2 class="card-title solution">SOLUTION</h2>
+      <div class="card solution-card">
+        <img src="{{ solutionIcon }}" alt="Solution Icon" class="icon">
+        <p class="card-text">{{ solutionText }}</p>
+        <button class="how-it-works-btn" (click)="onHowItWorksClick()">How it works?</button>
+      </div>
+    </div>
+  </div>
+  

@@ -18,6 +18,7 @@ import { StoryBoardComponent } from './components/story-board/story-board.compon
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
+import { ProblemComponent } from './components/problem/problem.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.
     StoryBoardComponent,
     DashboardComponent,
     QuizComponent,
-    AnswerDialogComponent
+    AnswerDialogComponent,
+    ProblemComponent
   ],
   imports: [
     BrowserModule,

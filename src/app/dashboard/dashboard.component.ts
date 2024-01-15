@@ -8,12 +8,13 @@ import { AppContext } from 'src/app/services/app-context';
 import { OpenaiService } from 'src/app/services/open-ai.service';
 
 export enum Workspace {
-  Problem = "Problem",
+  Problem = "1- Problem",
   // MindMap = "MindMaps",
-  MindMap = "How It works ?",
-  StoryBoard = "StoryBoard",
-  Quiz = "Quiz",
-  Coding = "Coding"
+  MindMap = "2- How It works ?",
+  StoryBoard = "3- StoryBoard",
+  Quiz = "4- Quiz",
+  Coding = "5- Coding",
+  Deepdive = "6- Deepdive"
 }
 
 @Component({
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
  showDropdown: string | null = null;
 
  Workspace = Workspace
- activeWorkspace: Workspace = Workspace.MindMap
+ activeWorkspace: Workspace = Workspace.Problem
  // Constructor
  constructor(
    public dialog: MatDialog,
@@ -121,18 +122,18 @@ export class DashboardComponent implements OnInit {
         title: 'Problem',
         // imageUrl: 'https://source.unsplash.com/random/200x120',
         // imageUrl: 'assets/btcIllustrated/mindmap/test.png',
-        imageUrl: 'assets/btcIllustrated/icons/mindmap.png',
+        imageUrl: 'assets/btcIllustrated/icons/problem2.png',
         tag: Workspace.Problem
       },
        {
-         title: 'Mind Map 2',
+         title: 'MindMap',
          // imageUrl: 'https://source.unsplash.com/random/200x120',
          // imageUrl: 'assets/btcIllustrated/mindmap/test.png',
          imageUrl: 'assets/btcIllustrated/icons/mindmap.png',
          tag: Workspace.MindMap
        },
        {
-         title: 'Mind Map 3',
+         title: 'Story Board',
          // imageUrl: 'https://source.unsplash.com/random/200x120',
          // imageUrl: null,
          // imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
@@ -140,7 +141,7 @@ export class DashboardComponent implements OnInit {
          tag: Workspace.StoryBoard
        },
        {
-         title: 'Mind Map 3',
+         title: 'Quiz',
          // imageUrl: 'https://source.unsplash.com/random/200x120',
          // imageUrl: null,
          // imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
@@ -148,12 +149,19 @@ export class DashboardComponent implements OnInit {
          tag: Workspace.Quiz
        },
        {
-         title: 'Mind Map 1',
+         title: 'Coding',
          // imageUrl: null,
          // imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
          imageUrl: 'assets/btcIllustrated/icons/code.png',
          tag: Workspace.Coding
        },
+       {
+        title: 'Deep Dive',
+        // imageUrl: null,
+        // imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
+        imageUrl: 'assets/btcIllustrated/icons/deepdive.png',
+        tag: Workspace.Deepdive
+       }
      ];
    } else {
      console.error('No data available for the Mind Map');

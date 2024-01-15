@@ -1,0 +1,90 @@
+
+.content-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem; // Adjust the gap if needed
+  margin: 20px;
+  
+}
+
+.problem-container, .solution-container {
+  flex: 0 0 auto; // Disable flex grow and shrink, set flex-basis to auto
+  width: 35%; // Adjust the width as needed, previously was calculated to 50% - gap
+  min-width: 0; // Fixes an overflow issue in flexbox
+}
+
+
+
+.card-title {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.card-title.problem {
+  color: #FF9D9D;
+}
+.card-title.solution {
+  color: #65E47C;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 20px;
+  color: #eeede1;
+  height: 100%; // Make the cards fill the height of their container
+  max-height: 300px; // Maximum height before scroll
+  overflow-y: auto; // Scrollbar if content overflows
+}
+
+.problem-card {
+  border-color: #FF9D9D;
+}
+.problem-card:hover {
+  background: #ff634826;
+}
+
+.solution-card {
+  border-color: #65E47C;
+}
+
+.solution-card:hover {
+  background: #32cd322b;
+}
+
+
+.icon {
+  width: 80px; // Adjust size as needed
+  height: auto;
+  margin: 0 auto 10px auto; // Center the icon horizontally
+  display: block; // Allows margin auto to center the icon
+}
+
+.card-text {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.how-it-works-btn {
+  background: transparent;
+  border: 2px solid #eeede1;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #eeede1;
+  font-weight: bold;
+  border-radius: 5px;
+  outline: none;
+  margin-top: auto; // Pushes the button to the bottom of the card
+  width: fit-content;
+}
+
+.how-it-works-btn:hover {
+  background: #eeede1;
+  color: #32CD32;
+}
