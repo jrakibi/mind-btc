@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { DialogueResponse, MindMapperResponse } from '../model/mind-map.api.interfaces';
 import { StoryBoardResponse } from '../model/story-board.model';
 import { ProblemSolutionResponse } from '../model/problem-solution.model';
+import { QuizResponse } from '../model/quiz.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +55,14 @@ export class OpenaiService {
     }
     const url = `${this.baseUrl}/problem-solution?topic=${encodeURIComponent(topic)}`;
     return this.http.get<ProblemSolutionResponse>(url);
+  }
+
+  generateQuizResponse(topic: string): Observable<QuizResponse> {
+    if (!topic?.trim()) {
+      return throwError(() => new
+        Error('The topic is empty or null.'));
+    }
+    const url = `${this.baseUrl}/quiz?topic=${encodeURIComponent(topic)}`;
+    return this.http.get<QuizResponse>(url);
   }
 }

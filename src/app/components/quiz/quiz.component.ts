@@ -1,55 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AppContext } from 'src/app/services/app-context';
+import { OpenaiService } from 'src/app/services/open-ai.service';
+import { Question, QuizResponse } from 'src/app/model/quiz.model';
 
-interface Question {
-  text: string;
-  choices: string[];
-  answer: string;
-}
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css']
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit  {
 
- questions: Question[] = [
-  {
-    text: "What does AssumeUTXO primarily help to improve in the Bitcoin network?",
-    choices: ["Transaction Fees", "Node Synchronization Speed", "Wallet Security", "Block Size Limit"],
-    answer: "Node Synchronization Speed"
-  },
-  {
-    text: "AssumeUTXO can be best described as:",
-    choices: ["A new cryptocurrency", "A consensus algorithm", "A snapshot of UTXO set", "A wallet interface"],
-    answer: "A snapshot of UTXO set"
-  },
-  // {
-  //   text: "Which aspect of Bitcoin does AssumeUTXO aim to address?",
-  //   choices: ["Mining Difficulty", "Blockchain Scalability", "Energy Consumption", "Initial Blockchain Download (IBD) Time"],
-  //   answer: "Initial Blockchain Download (IBD) Time"
-  // },
-  // {
-  //   text: "AssumeUTXO is mainly useful for:",
-  //   choices: ["Experienced Bitcoin users", "Bitcoin miners", "New nodes joining the network", "Regulatory bodies"],
-  //   answer: "New nodes joining the network"
-  // },
-  // {
-  //   text: "How does AssumeUTXO affect the security of the Bitcoin network?",
-  //   choices: ["Significantly increases it", "Has no effect", "Temporarily reduces it until full sync", "Significantly reduces it"],
-  //   answer: "Temporarily reduces it until full sync"
-  // },
-  // {
-  //   text: "What is the ultimate goal of a node using AssumeUTXO?",
-  //   choices: ["To replace traditional blockchain verification", "To never download the full blockchain", "To achieve full node status faster", "To act as a lightweight client"],
-  //   answer: "To achieve full node status faster"
-  // }
-];
+ questions: Question[] = [];
+
   currentQuestionIndex: number = 0;
   score: number = 0;
-  selectedChoice: string | null = null;
+  selectedChoice: number | null = null;
   showResult: boolean = false;
   isAnswerCorrect: boolean | null = null;
   answerSubmitted: boolean = false; // Initially false
@@ -57,26 +25,58 @@ export class QuizComponent {
   footerClass: string = '';
   totalQuestions: number = 0; // Total number of questions in the quiz
   answeredQuestions: number = 0; // Number of questions answered so far
+  quizData: QuizResponse | null = null;
+  isLoading: boolean = true; // Initialize as true to show the loader initially
 
-  constructor(public dialog: MatDialog) {
-    this.totalQuestions = this.questions.length
+  constructor(public dialog: MatDialog,
+    private openaiService: OpenaiService,
+    private appContext: AppContext,) {
   }
 
-  selectChoice(choice: string): void {
-    this.selectedChoice = choice;
+  ngOnInit(): void {
+    this.generateQuizResponse(this.appContext.topic);
+
+   }
+
+   generateQuizResponse(topic: string) {
+    debugger
+    this.isLoading = true; // Start loading
+    this.openaiService.generateQuizResponse(topic).subscribe({
+      next: (response) => {
+        debugger
+        this.quizData = response;
+        this.questions = this.quizData.questions
+        this.totalQuestions = this.questions.length
+
+        this.appContext.storeQuizData(response); // Store the data
+        this.isLoading = false; // Stop loading when data is received
+
+      },
+      error: (err) => {
+        debugger
+        console.error('Error generating Proble Solution:', err);
+        this.isLoading = false; // Stop loading when data is received
+
+      }
+    });
+  }
+  
+
+  selectChoice(choiceNumber: number): void {
+    debugger
+    this.selectedChoice = choiceNumber;
   }
 
 
   submitAnswer(): void {
-    this.answerSubmitted = true; // Set this to true to indicate that an answer has been submitted
-    this.answeredQuestions++; 
-    const correct = this.selectedChoice === this.questions[this.currentQuestionIndex].answer;
-    this.isAnswerCorrect = correct;
-    
-    if (correct) {
-      this.score++;
-    }
+    this.answerSubmitted = true;
+  this.answeredQuestions++; 
+  const correct = this.selectedChoice === this.questions[this.currentQuestionIndex].answer;
+  this.isAnswerCorrect = correct;
 
+  if (correct) {
+    this.score++;
+  }
 
     
     

@@ -5,6 +5,7 @@ import { MindMapperResponse } from '../model/mind-map.api.interfaces';
 import { StoryBoardResponse } from '../model/story-board.model';
 import { Workspace } from '../enums/workspace.enum';
 import { ProblemSolutionResponse } from '../model/problem-solution.model';
+import { QuizResponse } from '../model/quiz.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AppContext {
   private mindMapperData: MindMapperResponse | null = null;
   private storyBoardData: StoryBoardResponse | null = null;
   private problemSolutionData: ProblemSolutionResponse | null = null;
+  private quizData: QuizResponse | null = null;
   public topic: string = "";
   public activeWorkspace: Workspace = Workspace.MindMap;
 
@@ -61,6 +63,15 @@ export class AppContext {
 
   retrieveProblemSolutionData(): ProblemSolutionResponse | null {
     return this.problemSolutionData;
+  }
+
+
+  storeQuizData(data: QuizResponse) {
+    this.quizData = data;
+  }
+
+  retrieveQuizData(): QuizResponse | null {
+    return this.quizData;
   }
 
 }
