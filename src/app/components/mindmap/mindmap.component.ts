@@ -31,6 +31,8 @@ export class MindmapComponent implements OnInit, AfterViewInit {
   zoomLevel = 0.5;
   zoomStep = 0.1;
   showDropdown: string | null = null;
+  mindMapData: MindMapperResponse | null = null;
+  isLoading: boolean = true; // Initialize as true to show the loader initially
 
   // Constructor
   constructor(
@@ -43,150 +45,39 @@ export class MindmapComponent implements OnInit, AfterViewInit {
       workflow: new FormControl(''),
       tone: new FormControl(''),
     });
-    this.jsonData = {
-      "topic": {
-        "id": "derivation_path_bitcoin",
-        "name": "Derivation Path in Bitcoin",
-        "summary": "A derivation path is a crucial component in Bitcoin wallets, determining how individual addresses are generated from a master seed. It's part of the hierarchical deterministic (HD) wallet structure, allowing for organized and secure management of multiple Bitcoin addresses and keys.",
-        "subtopics": [
-          {
-            "id": "hd_wallets_basics",
-            "name": "Basics of Hierarchical Deterministic (HD) Wallets",
-            "points": [
-              {
-                "id": "hd_wallets_definition",
-                "name": "Definition of HD Wallets",
-                "details": [
-                  "HD wallets generate a hierarchical tree-like structure of keys from a single master seed.",
-                  "This structure enhances security and privacy by enabling the generation of new addresses for each transaction."
-                ],
-                "references": []
-              },
-              {
-                "id": "master_seed_role",
-                "name": "Role of Master Seed",
-                "details": [
-                  "The master seed is a 128-bit to 256-bit random number, often represented as a mnemonic phrase.",
-                  "It is the root from which all private and public keys are derived in an HD wallet."
-                ],
-                "references": []
-              }
-            ],
-            "references": []
-          },
-          {
-            "id": "derivation_paths_understanding",
-            "name": "Understanding Derivation Paths",
-            "points": [
-              {
-                "id": "derivation_path_definition",
-                "name": "Definition and Structure",
-                "details": [
-                  "A derivation path specifies the route taken through the hierarchical tree to derive a particular key or address.",
-                  "The path is typically noted in a format like m/44'/0'/0'/0/0."
-                ],
-                "references": []
-              },
-              {
-                "id": "derivation_path_components",
-                "name": "Components of a Derivation Path",
-                "details": [
-                  {
-                    "id": "purpose_field",
-                    "name": "Purpose Field",
-                    "details": [
-                      "Typically set to 44', adhering to BIP44 standards.",
-                      "Indicates the type of wallet, such as multi-currency or Bitcoin-specific."
-                    ],
-                    "references": []
-                  },
-                  {
-                    "id": "coin_type",
-                    "name": "Coin Type",
-                    "details": [
-                      "Specifies the cryptocurrency, with 0' for Bitcoin.",
-                      "Allows for multi-currency HD wallets."
-                    ],
-                    "references": []
-                  },
-                  {
-                    "id": "account",
-                    "name": "Account",
-                    "details": [
-                      "Differentiates between multiple accounts for the same coin type.",
-                      "Allows users to separate funds for different purposes."
-                    ],
-                    "references": []
-                  },
-                  {
-                    "id": "change",
-                    "name": "Change",
-                    "details": [
-                      "Distinguishes between external addresses (0) used for receiving funds and internal (1) for change and transaction linking.",
-                      "Enhances privacy by separating transaction types."
-                    ],
-                    "references": []
-                  },
-                  {
-                    "id": "address_index",
-                    "name": "Address Index",
-                    "details": [
-                      "Represents the individual addresses generated under the account.",
-                      "Sequentially increases as new addresses are required."
-                    ],
-                    "references": []
-                  }
-                ],
-                "references": []
-              }
-            ],
-            "references": []
-          }
-        ],
-        "references": [
-          "https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki",
-          "https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki"
-        ]
-      }
-    }
-    
+
   }
+
 
   // Lifecycle hooks
   ngOnInit(): void {
     // Mind Map initialization logic
-    const mindMapData = this.jsonData; // Simplified data retrieval logic
-    if (mindMapData) {
-      this.jsonData = mindMapData; // Assign the dynamic data to the jsonData property
-      const graphData = this.transformToGraphData(this.jsonData);
-      this.nodes = graphData.nodes;
-      this.links = graphData.links;
-
-      this.mindMaps = [
-        {
-          title: 'Mind Map 1',
-          imageUrl: 'assets/btcIllustrated/mindmap/test.png',
-          tag: 'AssumeUTXO'
-        },
-        {
-          title: 'Mind Map 2',
-          // imageUrl: 'https://source.unsplash.com/random/200x120',
-          imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
-          tag: 'Segwit'
-        },
-        {
-          title: 'Mind Map 3',
-          // imageUrl: 'https://source.unsplash.com/random/200x120',
-          imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
-          tag: 'CTV'
-        }
-        // ...add more if needed
-      ];
+    debugger
+    this.generateMindMapperResponse(this.appContext.topic);
 
 
-    } else {
-      console.error('No data available for the Mind Map');
-    }
+
+    this.mindMaps = [
+      {
+        title: 'Mind Map 1',
+        imageUrl: 'assets/btcIllustrated/mindmap/test.png',
+        tag: 'AssumeUTXO'
+      },
+      {
+        title: 'Mind Map 2',
+        // imageUrl: 'https://source.unsplash.com/random/200x120',
+        imageUrl: 'assets/btcIllustrated/mindmap/test2.png',
+        tag: 'Segwit'
+      },
+      {
+        title: 'Mind Map 3',
+        // imageUrl: 'https://source.unsplash.com/random/200x120',
+        imageUrl: 'assets/btcIllustrated/mindmap/test3.png',
+        tag: 'CTV'
+      }
+      // ...add more if needed
+    ];
+
   }
 
   ngAfterViewInit(): void {
@@ -198,6 +89,34 @@ export class MindmapComponent implements OnInit, AfterViewInit {
     // Form submission logic
   }
 
+  generateMindMapperResponse(topic: string) {
+    debugger
+    
+    this.isLoading = true; // Start loading
+    this.openaiService.getMindMapper(topic).subscribe({
+      next: (response) => {
+        this.mindMapData = response;
+        this.appContext.storeMindMapperData(response); // Store the data
+        this.isLoading = false; // Stop loading when data is received
+        if (this.mindMapData) {
+          this.jsonData = this.mindMapData; // Assign the dynamic data to the jsonData property
+          const graphData = this.transformToGraphData(this.jsonData);
+          this.nodes = graphData.nodes;
+          this.links = graphData.links;
+        } else {
+          console.error('No data available for the Mind Map');
+        }
+
+      },
+      error: (err) => {
+        
+        console.error('Error generating Mind Mapper:', err);
+        this.isLoading = false; // Stop loading when data is received
+
+      }
+    });
+  }
+
   private generateId(): string {
     return `node-${this.idCounter++}`;
   }
@@ -207,130 +126,80 @@ export class MindmapComponent implements OnInit, AfterViewInit {
   private transformToGraphData(jsonData: any): { nodes: MyNode[], links: MyLink[] } {
     const nodes: MyNode[] = [];
     const links: MyLink[] = [];
-    let estimatedHeight: number;
 
     // Root Node
     const rootNode: MyNode = {
-      id: this.generateId(),
-      label: jsonData.topic.name,
-      data: {},
-      fixedWidth: 450,
-      // dynamicHeight: this.estimateHeight(jsonData.topic.name, 300),
-      dynamicHeight: 170,
-      level: 0
+        id: this.generateId(),
+        label: jsonData.topic.name,
+        data: {},
+        fixedWidth: 450,
+        dynamicHeight: 170, // Adjust as needed
+        level: 0
     };
     nodes.push(rootNode);
 
     // Summary Node
     const summaryNode: MyNode = {
-      id: this.generateId(),
-      label: 'Summary',
-      data: { summary: jsonData.topic.summary },
-      fixedWidth: 400,
-      dynamicHeight: this.estimateHeight(jsonData.topic.summary, 450),
-      level: 1
+        id: this.generateId(),
+        label: 'Summary',
+        data: { summary: jsonData.topic.details },
+        fixedWidth: 400,
+        dynamicHeight: this.estimateHeight(jsonData.topic.details, 450),
+        level: 1
     };
     nodes.push(summaryNode);
     links.push({ id: this.generateId(), source: rootNode.id, target: summaryNode.id });
 
     // Sections Node
     const sectionNode: MyNode = {
-      id: this.generateId(),
-      label: 'Sections',
-      data: {},
-      fixedWidth: 400,
-      dynamicHeight: 130, // Adjust as needed
-      level: 1
+        id: this.generateId(),
+        label: 'Sections',
+        data: {},
+        fixedWidth: 400,
+        dynamicHeight: 130, // Adjust as needed
+        level: 1
     };
     nodes.push(sectionNode);
     links.push({ id: this.generateId(), source: rootNode.id, target: sectionNode.id });
 
     // References Node
     const referencesNode: MyNode = {
-      id: this.generateId(),
-      label: 'References',
-      data: { references: jsonData.topic.references },
-      fixedWidth: 400,
-      dynamicHeight: this.estimateHeight(jsonData.topic.references.join('\n'), 400),
-      level: 1
+        id: this.generateId(),
+        label: 'References',
+        data: { references: jsonData.references },
+        fixedWidth: 400,
+        dynamicHeight: this.estimateHeight(jsonData.references.join('\n'), 400),
+        level: 1
     };
     nodes.push(referencesNode);
     links.push({ id: this.generateId(), source: rootNode.id, target: referencesNode.id });
 
-    // Iterate over sections and create nodes
-    jsonData.topic.subtopics.forEach((section: any) => {
-      const sectionSubNode: MyNode = {
-        id: this.generateId(),
-        label: section.name,
-        data: {},
-        fixedWidth: 400,
-        dynamicHeight: this.estimateHeight(section.name, 400),
-        level: 2
-      };
-      nodes.push(sectionSubNode);
-      links.push({ id: this.generateId(), source: sectionNode.id, target: sectionSubNode.id });
-
-      // Iterate over points in each section
-      section.points.forEach((point: any) => {
-        estimatedHeight = this.estimateHeight(point.name, 300);
-        const pointNode: MyNode = {
-          id: this.generateId(),
-          label: point.name,
-          data: { details: point.details },
-          fixedWidth: 300,
-          dynamicHeight: estimatedHeight,
-          level: 3
-        };
-        nodes.push(pointNode);
-        links.push({ id: this.generateId(), source: sectionSubNode.id, target: pointNode.id });
-
-        // If point has subpoints, create nodes for them
-        point.details.forEach((detail: any, index: number) => {
-          if (typeof detail === 'string') {
-            // Handle case where detail is a string
-            const detailNode: MyNode = {
-              id: this.generateId(),
-              label: detail,
-              data: {},
-              fixedWidth: 300,
-              dynamicHeight: this.estimateHeight(detail, 300),
-              level: 4
-            };
-            nodes.push(detailNode);
-            links.push({ id: this.generateId(), source: pointNode.id, target: detailNode.id });
-          } else {
-            // Handle case where detail is an object with subpoints
-            const subpointNode: MyNode = {
-              id: this.generateId(),
-              label: detail.name,
-              data: { subpoints: detail.details },
-              fixedWidth: 300,
-              dynamicHeight: this.estimateHeight(detail.name, 300),
-              level: 4
-            };
-            nodes.push(subpointNode);
-            links.push({ id: this.generateId(), source: pointNode.id, target: subpointNode.id });
-
-            // Now add nodes for each subpoint
-            detail.details.forEach((subDetail: string) => {
-              const subDetailNode: MyNode = {
+    // Recursive function to handle subtopics
+    const addSubtopics = (subtopics: any[], parent: MyNode, level: number) => {
+        subtopics.forEach((subtopic) => {
+            const subtopicNode: MyNode = {
                 id: this.generateId(),
-                label: subDetail,
-                data: {},
-                fixedWidth: 300,
-                dynamicHeight: this.estimateHeight(subDetail, 300),
-                level: 5
-              };
-              nodes.push(subDetailNode);
-              links.push({ id: this.generateId(), source: subpointNode.id, target: subDetailNode.id });
-            });
-          }
+                label: subtopic.name,
+                data: { details: subtopic.details },
+                fixedWidth: 400,
+                dynamicHeight: this.estimateHeight(subtopic.name, 400) + 40,
+                level: level
+            };
+            nodes.push(subtopicNode);
+            links.push({ id: this.generateId(), source: parent.id, target: subtopicNode.id });
+
+            if (subtopic.subtopics && subtopic.subtopics.length > 0) {
+                addSubtopics(subtopic.subtopics, subtopicNode, level + 1);
+            }
         });
-      });
-    });
+    };
+
+    // Start adding subtopics from level 2
+    addSubtopics(jsonData.topic.subtopics, sectionNode, 2);
 
     return { nodes, links };
-  }
+}
+
 
 
 
@@ -426,5 +295,5 @@ export class MindmapComponent implements OnInit, AfterViewInit {
         return '#e9ecef'; // Default color for any other level
     }
   }
-  
+
 }

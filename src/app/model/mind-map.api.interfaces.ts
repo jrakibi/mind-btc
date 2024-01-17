@@ -11,14 +11,15 @@ export interface DialogueResponse {
   
 
   // mind-mapper-response.model.ts
-
 export interface MindMapperResponse {
-  title: string;
-  summary: string;
-  details: Detail[];
+  topic: Topic;
+  references: string[];
 }
 
-export interface Detail {
-  title: string;
-  explanations: string[];
+export interface Topic {
+  id: string;
+  name: string;
+  level: number;
+  details: string;
+  subtopics: Topic[]; // Recursive structure
 }

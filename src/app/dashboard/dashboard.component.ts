@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
 
   // Lifecycle hooks
   ngOnInit(): void {
-    debugger
+    
     this.activeWorkspace = this.appContext.retrieveActiveWorkspace() ?? Workspace.MindMap
     this.showWorkspace(this.activeWorkspace)
     // Mind Map initialization logic
@@ -367,7 +367,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async showWorkspace(workspace: Workspace) {
-    debugger
+    
     this.activeWorkspace = workspace
     this.appContext.storeActiveWorkspace(this.activeWorkspace)
   }

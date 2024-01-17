@@ -88,11 +88,11 @@ export class StoryBoardComponent implements OnInit {
 
    }
    generateStoryBoard(topic: string) {
-    debugger
+    
     this.isLoading = true; // Start loading
     this.openaiService.generateStoryBoard(topic).subscribe({
       next: (response) => {
-        debugger
+        
         // Path to the stick figures folder
         const basePath = 'assets/btcIllustrated/stick-figures/';
         // Array of available stick figure images
@@ -120,7 +120,7 @@ export class StoryBoardComponent implements OnInit {
 
       },
       error: (err) => {
-        debugger
+        
         console.error('Error generating storyboard:', err);
         this.isLoading = false; // Stop loading when data is received
 

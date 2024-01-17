@@ -39,18 +39,18 @@ export class ProblemComponent implements OnInit {
   
      }
      generateProblemResponse(topic: string) {
-      debugger
+      
       this.isLoading = true; // Start loading
       this.openaiService.generateProblemSolution(topic).subscribe({
         next: (response) => {
-          debugger
+          
           this.problemSolutionData = response;
           this.appContext.storeProblemSolutionData(response); // Store the data
           this.isLoading = false; // Stop loading when data is received
   
         },
         error: (err) => {
-          debugger
+          
           console.error('Error generating Proble Solution:', err);
           this.isLoading = false; // Stop loading when data is received
   

@@ -39,11 +39,11 @@ export class QuizComponent implements OnInit  {
    }
 
    generateQuizResponse(topic: string) {
-    debugger
+    
     this.isLoading = true; // Start loading
     this.openaiService.generateQuizResponse(topic).subscribe({
       next: (response) => {
-        debugger
+        
         this.quizData = response;
         this.questions = this.quizData.questions
         this.totalQuestions = this.questions.length
@@ -53,7 +53,7 @@ export class QuizComponent implements OnInit  {
 
       },
       error: (err) => {
-        debugger
+        
         console.error('Error generating Proble Solution:', err);
         this.isLoading = false; // Stop loading when data is received
 
@@ -63,7 +63,7 @@ export class QuizComponent implements OnInit  {
   
 
   selectChoice(choiceNumber: number): void {
-    debugger
+    
     this.selectedChoice = choiceNumber;
   }
 

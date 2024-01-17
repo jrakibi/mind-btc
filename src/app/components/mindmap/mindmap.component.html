@@ -1,4 +1,10 @@
 
+<div class="loader-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!isLoading">
+    
 <!-- Graph Container -->
 <div class="graph-container">
     <ngx-graph class="chart-container" [nodes]="nodes" [links]="links" [layout]="layout" [enableZoom]="true"
@@ -30,16 +36,6 @@
                     </svg:foreignObject>
                 </ng-container>
 
-                <!-- <ng-container *ngIf="node.level === 1">
-                    <svg:rect [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight" stroke="black"
-                        [attr.fill]="node.level === 1 ? '#f4f4f4' : '#e8e8e8'"></svg:rect>
-                    <svg:foreignObject [attr.width]="node.fixedWidth" [attr.height]="node.dynamicHeight">
-                        <div xmlns="http://www.w3.org/1999/xhtml" class="node-content level-one-node">
-                            <div class="node-header">{{ node.label }}</div>
-                            <div class="node-body" [innerHTML]="node.data.description || node.data.references"></div>
-                        </div>
-                    </svg:foreignObject>
-                </ng-container> -->
 
                 <!-- Level 1 Summary Node -->
                 <ng-container *ngIf="node.level === 1 && node.label.startsWith('Summary')">
@@ -129,7 +125,7 @@
                                     {{ node.label }}
                                 </div> -->
 
-                            <span class="node-label">{{ node.label }}</span>
+                            <span class="node-label"><span style="font-weight: 600;">{{ node.label }} :</span> {{ node.data.details }}</span>
                             <!-- <i class="fas fa-ellipsis-v node-options-icon"></i> -->
 
                         </div>
@@ -154,3 +150,4 @@
         </button>
     </div>
 </div>
+    </ng-container>

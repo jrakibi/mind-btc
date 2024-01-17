@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   form: FormGroup;
   isLoading = false; // New property to manage loader state
   Workspace = Workspace
-  activeWorkspace: Workspace = Workspace.StoryBoard
+  activeWorkspace: Workspace = Workspace.Problem
 
   constructor(
     private http: HttpClient,
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   }
 
   submitData() {
-    debugger
+    
     this.isLoading = true; 
 
     if (this.form.valid) {
@@ -49,32 +49,17 @@ export class HomeComponent implements OnInit {
       this.appContext.storeTopic(topic)
       this.isLoading = false; // Hide loading animation
       this.showWorkspace(this.activeWorkspace)
-      // this.openaiService.getMindMapper(topic).subscribe({
-      //   next: (response) => {
-      //     debugger
-      //     this.appContext.storeMindMapperData(response); // Store the data
-      //     this.isLoading = false; // Hide loading animation
-      //     this.router.navigate(['/illustration', 'mindmapper']);
-      //   },
-      //   error: (err) => {
-      //     debugger
-      //     this.isLoading = false; // Hide loading animation
-      //     console.error('Error generating mind map:', err);
-
-
-      //   }
-      // });
     }
   }
 
 
   toggleDropdown(dropdownKey: string) {
-    debugger
+    
     this.showDropdown = this.showDropdown === dropdownKey ? null : dropdownKey;
   }
 
   selectWorkspace(dropdownKey: string, workspace: Workspace) {
-    debugger
+    
     this.activeWorkspace = workspace
 
     this.form.get(dropdownKey)?.setValue(workspace.toString());
@@ -82,7 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectTone(dropdownKey: string, option: string) {
-    debugger
+    
     this.form.get(dropdownKey)?.setValue(option);
     this.showDropdown = null; // Hide dropdown after selection
   }
@@ -105,12 +90,12 @@ export class HomeComponent implements OnInit {
   }
   
   createMindMap() {
-    debugger
+    
     this.createMindMapClicked.emit(true)
   }
 
   async showWorkspace(workspace: Workspace) {
-    debugger
+    
     this.activeWorkspace = workspace
     this.appContext.storeActiveWorkspace(this.activeWorkspace)
     this.router.navigate(['dashboard']);
